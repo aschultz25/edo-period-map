@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Edo Period Map with Points of Interest</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script>
+        // Mapbox Access Token
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYWxleGlzc2NodWx0eiIsImEiOiJjbTRkNGI3MngwaW44Mm1vdjZucTF4Z3NlIn0.A_q7Px2PJWUKeKTHapy4-g';
+
+        // Initialize Map
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/light-v10',
+            center: [137.5, 35.0], // Centered on Japan
+            zoom: 5
+        });
+
+        // Locations Data
+        const locations = [
+            { name: "Osaka Castle", coordinates: [135.5259, 34.6873] },
+            { name: "Edo Castle", coordinates: [139.753372, 35.685360] },
+            { name: "Nikko Toshogu Shrine (Tochigi)", coordinates: [139.598958, 36.758064] },
+            { name: "Mount Fuji (Shizuoka/Yamanashi)", coordinates: [138.73111, 35.35806] },
+            { name: "Kanazawa Castle (Ishikawa)", coordinates: [136.6596, 36.5660] },
+            { name: "Nagoya Castle (Aichi)", coordinates: [136.8997, 35.1848] },
+            { name: "Edo (and Tokugawa Domain)", coordinates: [139.774444, 35.683889] },
+            { name: "Kyoto", coordinates: [135.7681, 35.0116] },
+            { name: "Osaka", coordinates: [135.5023, 34.6937] },
+            { name: "Hakata (Fukuoka)", coordinates: [130.4373, 33.5835] },
+            { name: "Nagasaki", coordinates: [129.8779, 32.7503] },
+            { name: "Satsuma Domain", coordinates: [130.4556, 31.9056] },
+            { name: "Tsushima Domain", coordinates: [129.3333, 34.4167] }
+        ];
+
+        // Add Markers and Pop-ups
+        locations.forEach(location => {
+            const popup = new mapboxgl.Popup({ offset: 25 }).setText(location.name);
+
+            new mapboxgl.Marker({ color: '#FF5733' }) // Custom marker color
+                .setLngLat(location.coordinates)
+                .setPopup(popup) // Add pop-up
+                .addTo(map);
+        });
+
+        // Optional: Add zoom and rotation controls
+        map.addControl(new mapboxgl.NavigationControl());
+    </script>
+</body>
+</html>
